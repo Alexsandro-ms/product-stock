@@ -17,9 +17,19 @@ export const createUser = async (data) => {
   return user;
 };
 
-export const get = async (req, res) => {
+export const getAll = async (req, res) => {
   try {
-    const users = await getAllUsers();
+    const users = await prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        password: false,
+        phone: true,
+        createAt: true,
+        updateAt: true
+      }
+    });
     return res.status(200).send(users);
   } catch (error) {
     return res.status(400).send(error);
@@ -28,7 +38,7 @@ export const get = async (req, res) => {
 
 export const getById = async (req, res) => {
   try {
-    const user = await getById(Number(req.params.id));
+    const user = await prisma.user.findUnique({ where: { id: req.params.id } });
     return res.status(200).send(user);
   } catch (error) {
     return res.status(400).send(error);
