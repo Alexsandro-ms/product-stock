@@ -2,6 +2,8 @@
 
 API 'Product Stock' permite que desenvolvedores integrem recursos de um gerenciador de estoque em seus aplicativos.
 
+🚧 Api em construção... 🚧
+
 ## Funcionalidades
 
 - Cadastro de usuários
