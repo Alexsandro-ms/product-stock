@@ -30,7 +30,7 @@ export const getAll = async (req, res) => {
         updateAt: true
       }
     });
-    return res.status(200).send(users);
+    return users;
   } catch (error) {
     return res.status(400).send(error);
   }
@@ -39,7 +39,7 @@ export const getAll = async (req, res) => {
 export const getById = async (req, res) => {
   try {
     const user = await prisma.user.findUnique({ where: { id: req.params.id } });
-    return res.status(200).send(user);
+    return user;
   } catch (error) {
     return res.status(400).send(error);
   }
