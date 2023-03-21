@@ -4,7 +4,7 @@ import { prisma } from "../../../src/services/prisma.js";
 
 describe("POST /user", () => {
   afterAll(async () => {
-    await prisma.user.deleteMany({});
+    await prisma.user.deleteMany({ where: { email: "johndoe@gmail.com" } });
   });
   test("should create a new user", async () => {
     const mockUser = {
@@ -37,18 +37,6 @@ describe("POST /user", () => {
 });
 
 describe("GET /user", () => {
-  beforeAll(async () => {
-    const userTest = {
-      name: "teste",
-      email: "teste@gmail.com",
-      password: "123456",
-      phone: "12345678900"
-    };
-    await prisma.user.create({
-      data: userTest
-    });
-  });
-
   test("should search all registered users", async () => {
     const registeredUsers = [
       {
@@ -64,5 +52,25 @@ describe("GET /user", () => {
     expect(response.body[0]).toHaveProperty("name", registeredUsers[0].name);
     expect(response.body[0]).toHaveProperty("email", registeredUsers[0].email);
     expect(response.body[0]).toHaveProperty("phone", registeredUsers[0].phone);
+  });
+
+  test("should search for a user by id", async () => {
+    const registeredUsers = {
+      id: 9,
+      name: "teste",
+      email: "teste@gmail.com",
+      phone: "12345678900",
+      createAt: "2023-03-21T18:54:25.987Z",
+      updateAt: "2023-03-21T18:54:25.987Z"
+    };
+
+    const response = await request(app).get(`/user/${registeredUsers.id}`);
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty("name", registeredUsers.name);
+    expect(response.body).toHaveProperty("email", registeredUsers.email);
+    expect(response.body).toHaveProperty("phone", registeredUsers.phone);
+    expect(response.body).toHaveProperty("createAt", registeredUsers.createAt);
+    expect(response.body).toHaveProperty("updateAt", registeredUsers.updateAt);
   });
 });
