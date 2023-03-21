@@ -17,7 +17,7 @@ export const createUser = async (data) => {
   return user;
 };
 
-export const getAll = async (req, res) => {
+export const getAll = async () => {
   try {
     const users = await prisma.user.findMany({
       select: {
@@ -36,9 +36,9 @@ export const getAll = async (req, res) => {
   }
 };
 
-export const getById = async (req, res) => {
+export const getById = async (id) => {
   try {
-    const user = await prisma.user.findUnique({ where: { id: req.params.id } });
+    const user = await prisma.user.findUnique({ where: { id } });
     return user;
   } catch (error) {
     return res.status(400).send(error);
