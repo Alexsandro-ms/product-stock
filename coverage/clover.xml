@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1679422672211" clover="3.2.0">
-  <project timestamp="1679422672211" name="All files">
-    <metrics statements="43" coveredstatements="33" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="6" elements="51" coveredelements="39" complexity="0" loc="43" ncloc="43" packages="6" files="7" classes="7"/>
+<coverage generated="1679425596874" clover="3.2.0">
+  <project timestamp="1679425596874" name="All files">
+    <metrics statements="43" coveredstatements="39" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="8" elements="51" coveredelements="47" complexity="0" loc="43" ncloc="43" packages="6" files="7" classes="7"/>
     <package name="src">
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="index.js" path="C:\Users\alexs\Documents\projetos\estoque\product-stock\src\index.js">
@@ -13,9 +13,9 @@
       </file>
     </package>
     <package name="src.controllers">
-      <metrics statements="18" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
+      <metrics statements="18" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
       <file name="user.controller.js" path="C:\Users\alexs\Documents\projetos\estoque\product-stock\src\controllers\user.controller.js">
-        <metrics statements="18" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
+        <metrics statements="18" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="2" type="stmt"/>
         <line num="11" count="2" type="stmt"/>
@@ -30,16 +30,16 @@
         <line num="26" count="1" type="stmt"/>
         <line num="28" count="0" type="stmt"/>
         <line num="32" count="1" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
         <line num="37" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.repositories">
-      <metrics statements="13" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
+      <metrics statements="13" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
       <file name="user.repository.js" path="C:\Users\alexs\Documents\projetos\estoque\product-stock\src\repositories\user.repository.js">
-        <metrics statements="13" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
+        <metrics statements="13" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
@@ -49,9 +49,9 @@
         <line num="33" count="1" type="stmt"/>
         <line num="35" count="0" type="stmt"/>
         <line num="39" count="1" type="stmt"/>
-        <line num="40" count="0" type="stmt"/>
-        <line num="41" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
         <line num="44" count="0" type="stmt"/>
       </file>
     </package>
