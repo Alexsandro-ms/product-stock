@@ -1,11 +1,16 @@
+import { jest } from "@jest/globals";
 import app from "../../../src/index.js";
 import request from "supertest";
+
 import { prisma } from "../../../src/services/prisma.js";
+
+import { getId } from "../../../src/controllers/user.controller";
 
 describe("POST /user", () => {
   afterAll(async () => {
     await prisma.user.deleteMany({ where: { email: "johndoe@gmail.com" } });
   });
+
   test("should create a new user", async () => {
     const mockUser = {
       name: "John Doe",
@@ -72,5 +77,28 @@ describe("GET /user", () => {
     expect(response.body).toHaveProperty("phone", registeredUsers.phone);
     expect(response.body).toHaveProperty("createAt", registeredUsers.createAt);
     expect(response.body).toHaveProperty("updateAt", registeredUsers.updateAt);
+  });
+
+  test("An error should occur when trying to search for a user by id", async () => {
+    const registeredUsers = {
+      id: 87897
+    };
+
+    const response = await request(app).get(`/user/${registeredUsers.id}`);
+
+    expect(response.statusCode).toBe(404);
+    expect(response.body).toHaveProperty("message", "User not found.");
+  });
+
+  test("should return 500 when getById throws an error", async () => {
+    const req = { params: { id: "123" } };
+    const res = { status: jest.fn(() => res), send: jest.fn() };
+    const getById = jest.fn(() => {
+      throw new Error("Test error");
+    });
+
+    await getId(req, res, getById);
+
+    expect(res.status).toHaveBeenCalledWith(500);
   });
 });
