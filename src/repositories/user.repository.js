@@ -32,7 +32,7 @@ export const getAll = async () => {
     });
     return users;
   } catch (error) {
-    return res.status(400).send(error);
+    return error;
   }
 };
 
@@ -41,6 +41,6 @@ export const getById = async (id) => {
     const user = await prisma.user.findUnique({ where: { id } });
     return user;
   } catch (error) {
-    return res.status(400).send(error);
+    return error;
   }
 };
