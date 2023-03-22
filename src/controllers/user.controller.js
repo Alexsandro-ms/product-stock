@@ -1,7 +1,8 @@
 import {
   createUser,
   getAll,
-  getById
+  getById,
+  updateUser
 } from "../repositories/user.repository.js";
 import { userValidation } from "../validation/user.validation.js";
 import bcrypt from "bcrypt";
@@ -46,5 +47,14 @@ export const getId = async (req, res) => {
     return res.status(200).send(user);
   } catch (error) {
     return res.status(500);
+  }
+};
+
+export const update = async (req, res) => {
+  try {
+    const user = await updateUser(Number(req.params.id), req.body);
+    return res.status(200).send(user);
+  } catch (error) {
+    return res.status(400).send(error);
   }
 };
