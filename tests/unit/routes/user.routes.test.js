@@ -3,7 +3,6 @@ import app from "../../../src/index.js";
 import request from "supertest";
 
 import { prisma } from "../../../src/services/prisma.js";
-
 import { getId } from "../../../src/controllers/user.controller";
 
 describe("POST /user", () => {
@@ -12,7 +11,7 @@ describe("POST /user", () => {
   });
 
   test("should create a new user", async () => {
-    const mockUser = {
+    let mockUser = {
       name: "John Doe",
       email: "johndoe@gmail.com",
       password: "123456",
@@ -28,7 +27,7 @@ describe("POST /user", () => {
   });
 
   test("An error should occur when trying to create a user", async () => {
-    const mockUser = {
+    let mockUser = {
       name: "John Doe",
       email: "",
       password: "123456",
@@ -43,8 +42,9 @@ describe("POST /user", () => {
 
 describe("GET /user", () => {
   test("should search all registered users", async () => {
-    const registeredUsers = [
+    let registeredUsers = [
       {
+        id: 9,
         name: "teste",
         email: "teste@gmail.com",
         phone: "12345678900"
@@ -54,19 +54,20 @@ describe("GET /user", () => {
 
     expect(response.statusCode).toBe(200);
     expect(response.body).toBeInstanceOf(Array);
+    expect(response.body[0]).toHaveProperty("id", registeredUsers[0].id);
     expect(response.body[0]).toHaveProperty("name", registeredUsers[0].name);
     expect(response.body[0]).toHaveProperty("email", registeredUsers[0].email);
     expect(response.body[0]).toHaveProperty("phone", registeredUsers[0].phone);
   });
 
   test("should search for a user by id", async () => {
-    const registeredUsers = {
+    let registeredUsers = {
       id: 9,
       name: "teste",
       email: "teste@gmail.com",
       phone: "12345678900",
       createAt: "2023-03-21T18:54:25.987Z",
-      updateAt: "2023-03-21T18:54:25.987Z"
+      updateAt: "2023-03-22T18:29:32.639Z"
     };
 
     const response = await request(app).get(`/user/${registeredUsers.id}`);
@@ -80,7 +81,7 @@ describe("GET /user", () => {
   });
 
   test("An error should occur when trying to search for a user by id", async () => {
-    const registeredUsers = {
+    let registeredUsers = {
       id: 87897
     };
 
@@ -100,5 +101,40 @@ describe("GET /user", () => {
     await getId(req, res, getById);
 
     expect(res.status).toHaveBeenCalledWith(500);
+  });
+});
+
+describe("PUT /user", () => {
+  test("should change information of a user", async () => {
+    let registeredUsers = {
+      id: 40,
+      email: `${Date.now()}@email.com`
+    };
+    const response = await request(app)
+      .put(`/user/${registeredUsers.id}`)
+      .send(registeredUsers);
+
+    expect(response.statusCode).toBe(200);
+  });
+  test("There should be an error changing a users information", async () => {
+    let registeredUsers = {
+      id: "a"
+    };
+    const response = await request(app).put(`/user/${registeredUsers.id}`);
+
+    expect(response.statusCode).toBe(400);
+  });
+});
+
+describe("DELETE /user", () => {
+  test("should delete a user", async () => {
+    const deleteUser = { id: 56 };
+    const response = await request(app).delete(`/user/${deleteUser.id}`);
+    expect(response.statusCode).toBe(200);
+  });
+
+  test("an error should occur when trying to delete a user", async () => {
+    const response = await request(app).delete("/user/999");
+    expect(response.statusCode).toBe(400);
   });
 });
