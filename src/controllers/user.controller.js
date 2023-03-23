@@ -2,7 +2,8 @@ import {
   createUser,
   getAll,
   getById,
-  updateUser
+  updateUser,
+  deleteUser
 } from "../repositories/user.repository.js";
 import { userValidation } from "../validation/user.validation.js";
 import bcrypt from "bcrypt";
@@ -54,6 +55,15 @@ export const update = async (req, res) => {
   try {
     const user = await updateUser(Number(req.params.id), req.body);
     return res.status(200).send(user);
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+};
+
+export const remove = async (req, res) => {
+  try {
+    await deleteUser(Number(req.params.id));
+    return res.sendStatus(200);
   } catch (error) {
     return res.status(400).send(error);
   }
