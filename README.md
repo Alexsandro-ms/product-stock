@@ -9,6 +9,8 @@ API 'Product Stock' permite que desenvolvedores integrem recursos de um gerencia
 - Cadastro de usuários
 - Listagem de usuários cadastrados
 - Listagem de um usuário por Id
+- Edição de informações de um usuário
+- Deleção de usuário
 
 ## Stack utilizada
 
@@ -74,6 +76,32 @@ Para rodar os testes, rode o seguinte comando
 
 ## Documentação da API
 
+#### Cadastrar novo usuário
+
+```http
+  POST /user
+```
+
+| Corpo      | Tipo     | Descrição                                   |
+| :--------- | :------- | :------------------------------------------ |
+| `name`     | `string` | **Obrigatório**. Nome do usuário            |
+| `phone`    | `string` | **Opcional**. Número de telefone do usuário |
+| `email`    | `string` | **Obrigatório**. E-mail do usuário          |
+| `password` | `string` | **Obrigatório**. Senha do usuário           |
+
+#### Retorna um objeto com as informações do usuário cadastrado
+
+```json
+{
+    "id": 1,
+    "name": "Jane Doe",
+    "email": "johndoe@example.com",
+    "phone": "12345678901",
+    "createAt": "2023-03-18T17:10:19.710Z",
+    "updateAt": "2023-03-18T17:10:19.710Z"
+  },
+```
+
 #### Retorna todos os usuários
 
 ```http
@@ -109,9 +137,68 @@ Para rodar os testes, rode o seguinte comando
   GET /user/${id}
 ```
 
+| Parâmetro | Tipo     | Descrição                                              |
+| :-------- | :------- | :----------------------------------------------------- |
+| `id`      | `string` | **Obrigatório**. O ID do usuário que você quer receber |
+
+#### Retorna objeto com as informações do usuário
+
+```json
+{
+  "id": 1,
+  "name": "John Doe",
+  "email": "johndoe@example.com",
+  "phone": "12345678901",
+  "createAt": "2023-03-21T18:54:25.987Z",
+  "updateAt": "2023-03-22T18:29:32.639Z"
+}
+```
+
+#### Editar usuário
+
+```http
+  PUT /user/${id}
+```
+
+#### Parâmetro
+
 | Parâmetro | Tipo     | Descrição                                      |
 | :-------- | :------- | :--------------------------------------------- |
 | `id`      | `string` | **Obrigatório**. O ID do usuário que você quer |
+
+#### Corpo
+
+| Corpo      | Tipo     | Descrição                                   |
+| :--------- | :------- | :------------------------------------------ |
+| `name`     | `string` | **Opcional**. Nome do usuário               |
+| `phone`    | `string` | **Opcional**. Número de telefone do usuário |
+| `email`    | `string` | **Opcional**. E-mail do usuário             |
+| `password` | `string` | **Opcional**. Senha do usuário              |
+
+#### Retorna objeto com todas as informações do usuário ( Exceto senha )
+
+```json
+{
+  "id": 1,
+  "name": "John Doe",
+  "email": "johndoe@example.com",
+  "phone": "12345678901",
+  "createAt": "2023-03-21T18:54:25.987Z",
+  "updateAt": "2023-03-23T19:37:24.566Z"
+}
+```
+
+#### Deletar um usuário por id
+
+```http
+  DELETE /user/${id}
+```
+
+| Parâmetro | Tipo     | Descrição                                              |
+| :-------- | :------- | :----------------------------------------------------- |
+| `id`      | `string` | **Obrigatório**. O ID do usuário que você quer deletar |
+
+#### Retorna status 200 (OK)
 
 ## Licença
 
